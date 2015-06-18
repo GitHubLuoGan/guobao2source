@@ -1,0 +1,1 @@
+应用application需设置为UnipayApplication
