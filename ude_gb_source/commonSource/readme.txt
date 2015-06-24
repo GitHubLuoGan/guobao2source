@@ -1,1 +1,3 @@
 此文件基本只包含dataeye和信鸽
+
+common.jar仅仅包含dataeye和信鸽，第三方sdk需在json文件中配置
