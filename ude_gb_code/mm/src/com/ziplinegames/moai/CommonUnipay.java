@@ -61,16 +61,7 @@ public class CommonUnipay  extends  CommonBaseSdk {
 	public static JsonValue orderParms;
 	public static ProgressDialog mProgressDialog;
 	private static String code = "";
-		
-		//cop
-		public static String configInfo_1 = "{\"tollgate\":[0], \"gifttype\":4,\"itemstype\":1, \"prob\":[0],\"type\":[0],\"mode\":1,\"sdkid\":1,\"merger\":1}";
-		public static String copGameId = "";
-		public static String copChannelId = "";
-		public static String Ip = "";
-		public static String copAddr = "";
-		public static int recBuyStyle = 1;
-		public static String requestUrl ="http://www.baopiqi.com/api/gift.php?gameid=6&qudao=42&uid=5b92f04bbc41526d&ver=1.0.42&os=android-4.2.2&devices=L39u&ip=182.149.194.45&iccid=89860113881048662744&imsi=460018290507233&ratio=1794x1080";
-		//cop
+
 	//格式化GateWay链接
 	public static JsonObject SDKFormatGateWay(String uid,JsonObject jsonData)
 	{
@@ -84,159 +75,25 @@ public class CommonUnipay  extends  CommonBaseSdk {
 
 	//SDK初始化	  
 	public  void SDKInit(String parms){	 
-		Log.d("commonSdk","uniPay init");
+		CommonLog.d("commonSdk","uniPay init");
 		payCodeConfig.setPayCodeConfig(); 		
 		String appid=GetJsonVal(sConfigJsonObject,"appid","0");
 		String appkey=GetJsonVal(sConfigJsonObject,"appkey","0");
 	 
 
-	}
-	
-	/*********************************cop*************************************/
-	//获取本机ip
-		
-		public static String getNetIp() {
-			URL infoUrl = null;
-			InputStream inStream = null;
-			try {
-				infoUrl = new URL("http://1111.ip138.com/ic.asp");
-				URLConnection connection = infoUrl.openConnection();
-			  
-				HttpURLConnection httpConnection = (HttpURLConnection)connection;
-				int responseCode = httpConnection.getResponseCode();
-				if(responseCode == HttpURLConnection.HTTP_OK)
-				{
-					inStream = httpConnection.getInputStream();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(inStream,"gb2312"));
-					StringBuilder strber = new StringBuilder();
-					String line = null;
-					while ((line = reader.readLine()) != null)
-						strber.append(line + "\n");
-					inStream.close();
-					System.out.println("net-result----->"+strber);
-					//从反馈的结果中提取出IP地址
-					int start = strber.indexOf("[");
-					int end = strber.indexOf("]", start + 1);
-					line = strber.substring(start + 1, end);
-					return line;
-				}
-			}
-			catch(MalformedURLException e) {
-				e.printStackTrace();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-		
-		//获取cop请求串
-		public static String getRequestUrl(){
-			
-			String reseultUrl = "";
-			
-			try {
-				
-				
-				copGameId = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"copGameId","53");
-				copChannelId = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"copChannelId","42");
-				Ip = getNetIp();
-				copAddr = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"copAddr","http://www.baopiqi.com/api/");
-				String deviceCode = Secure.getString(sActivity.getBaseContext().getContentResolver(), Secure.ANDROID_ID);
-				
-				Log.d("commonSdk", "requestUrl----->copGameId" + copGameId);
-				Log.d("commonSdk", "requestUrl----->copChannelId" + copChannelId);
-				Log.d("commonSdk", "requestUrl----->Ip" + Ip);
-				Log.d("commonSdk", "requestUrl----->copAddr" + copAddr);
-				Log.d("commonSdk", "requestUrl----->deviceCode" + deviceCode);
-				
-				
-				TelephonyManager mTelephonyMgr = (TelephonyManager)sActivity.getSystemService(Context.TELEPHONY_SERVICE);
-				String imsi = mTelephonyMgr.getSubscriberId();
-				String iccid = mTelephonyMgr.getSimSerialNumber();
-				String version = "";
-				
-				Log.d("commonSdk", "requestUrl----->imsi" + imsi);
-				Log.d("commonSdk", "requestUrl----->iccid" + iccid);
-				
-			
-				 try {
-				        PackageManager manager = sActivity.getPackageManager();
-				        PackageInfo info = manager.getPackageInfo(sActivity.getPackageName(), 0);
-				        version = info.versionName;
-				        
-				    } catch (Exception e) {
-				        e.printStackTrace();
-				    }
-				    
-				    Log.d("commonSdk", "requestUrl----->version" + version);
-				    
-				    String device =  android.os.Build.MODEL;
-				    device = device.replace(' ', '_');
-				    
-				    Log.d("commonSdk", "requestUrl----->device" + device);
-				    
-				    Display mDisplay = sActivity.getWindowManager().getDefaultDisplay();
-				    String W = String.valueOf(mDisplay.getWidth());
-				    String H = String.valueOf(mDisplay.getHeight());
-				    
-				    String ratio = W + 'x' +H;
-				    
-				    Log.d("commonSdk", "requestUrl----->ratio" + ratio);
-
-				   
-				    reseultUrl = copAddr + "gift.php?" + "gameid=" +copGameId + "&qudao=" +copChannelId + "&uid=" +deviceCode + "&ver=" +version;
-				    reseultUrl = reseultUrl + "&os=" +"android-"+android.os.Build.VERSION.RELEASE  + "&devices=" +device +"&ip=" +Ip +"&iccid=" +iccid + "&imsi=" + imsi +"&ratio=" +ratio ;
-				    
-				 
-				    Log.d("commonSdk","copRequestUrl------->" + reseultUrl);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 	
-			return reseultUrl;
-		}
-		
-		public void doCop(){
-			
-			requestUrl = getRequestUrl();
-			Log.d("commonSdk", "requestUrl----->" + requestUrl);
-			
-	 		String configInfo = sendGet(requestUrl);
-	 		configInfo = configInfo.replace(":,", ":1,");
-	 		
-	 		JsonObject dataJson;
-	 		try{
-	 			dataJson = JsonObject.readFrom(configInfo);
-	 		    
-	 		}catch(Exception e){
-	 			dataJson = JsonObject.readFrom(configInfo_1);
-	 		}
-		
-	 		Log.d("commonSdk","copDataRespon------->" + dataJson.toString());
-	 		recBuyStyle = CommonBaseSdk.GetJsonValInt(dataJson, "gifttype", 1);
-	 		
-	 		if(recBuyStyle > 10){
-	 		recBuyStyle = recBuyStyle%10 + 1;
-	 		}
-	 		else { recBuyStyle = recBuyStyle/10 + 1; }
-	 		
-		}
-		
-		/*********************************cop*************************************/	
-		
-		
-		
-		public void ResultChannelInfo(){
+	}	
+	public void ResultChannelInfo(){
 		         
-				Log.d("commonSdk","ResultChannelInfo");	
+			CommonLog.d("commonSdk","ResultChannelInfo");	
 				
-				doCop();	
+				CommonTool.doCop(sConfigJsonObject,sActivity);	
 				
 		        JsonObject channelInfo=new JsonObject();
-		        channelInfo.add("recBuyStyle", recBuyStyle);
-		        channelInfo.add("chn", "unipay");
+		        channelInfo.add("recBuyStyle", CommonTool.recBuyStyle);
+		        String channel = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"packageChannel","unipay");
+		        channelInfo.add("chn", channel);
 		           
-		        Log.d("commonSdk","ResultChannelInfo----->"+ channelInfo.toString());
+		        CommonLog.d("commonSdk","ResultChannelInfo----->"+ channelInfo.toString());
 		        
 		        JsonRpcCall(Lua_Cmd_ResultChannelInfo,channelInfo);  
 		    }	
@@ -258,14 +115,14 @@ public class CommonUnipay  extends  CommonBaseSdk {
 	//onPause
 	public void onMPause(){
 		
-		Log.d("commonSdk","onMPause");
+		CommonLog.d("commonSdk","onMPause");
 		Utils.getInstances().onPause(CommonBaseSdk.sActivity);
 	}
 	
 	//onResume
 	public void onMResume(){
 		
-		Log.d("commonSdk","onMResume");
+		CommonLog.d("commonSdk","onMResume");
 		Utils.getInstances().onResume(CommonBaseSdk.sActivity);
 	}
 	
@@ -289,7 +146,7 @@ public class CommonUnipay  extends  CommonBaseSdk {
 	{ 
 		try { 
 			orderParms = parms;
-			Log.d("commonSdk","uniPay ---> " + parms.toString());
+			CommonLog.d("commonSdk","uniPay ---> " + parms.toString());
 			JsonObject _json = parms.asObject();
 			
             JsonObject  payinfoJson=_json.get("payInfo").asObject();
@@ -311,9 +168,15 @@ public class CommonUnipay  extends  CommonBaseSdk {
             bConfig.money=total;
             bConfig=payCodeConfig.getPayCodeConfig(bConfig);
             
-//            Log.d("commonSdk","uniPay ---> bConfig.payCode:::" + bConfig.payCode);
-//            Log.d("commonSdk","uniPay ---> Utils  " + String.valueOf(Utils.getInstances().isInit()));
-//            Log.d("commonSdk","uniPay ---> Activity  " + CommonBaseSdk.sActivity.getLocalClassName());
+            String payCode = CommonBaseSdk.GetJsonVal(payinfoJson, "info", "001");
+            CommonLog.d("commonSdk","payCode == " + payCode);
+            CommonLog.d("commonSdk","bConfig.payCode == " + bConfig.payCode);
+            
+            if(!payCode.equals(bConfig.payCode)){
+           	 
+           	 CommonLog.e("commonSdk","计费点已修改");
+           	 return "";
+            }
 
             code = bConfig.payCode;
             new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -321,9 +184,9 @@ public class CommonUnipay  extends  CommonBaseSdk {
     			public void run() {
     				try {
     					//todo
-    					Log.d("commonSdk","uniPay ---> bConfig.payCode:::" + code);
-    		            Log.d("commonSdk","uniPay ---> Utils  " + String.valueOf(Utils.getInstances().isInit()));
-    		            Log.d("commonSdk","uniPay ---> Activity  " + CommonBaseSdk.sActivity.getLocalClassName());
+    					CommonLog.d("commonSdk","uniPay ---> bConfig.payCode:::" + code);
+    		            CommonLog.d("commonSdk","uniPay ---> Utils  " + String.valueOf(Utils.getInstances().isInit()));
+    		            CommonLog.d("commonSdk","uniPay ---> Activity  " + CommonBaseSdk.sActivity.getLocalClassName());
     					Utils.getInstances().pay(CommonBaseSdk.sActivity, code, new UnipayPayResultListener(){
 
     						@Override	
@@ -331,7 +194,7 @@ public class CommonUnipay  extends  CommonBaseSdk {
     								String error) {
     							// TODO Auto-generated method stub
     							
-    							Log.d("commonSdk","payerror--->" + error);
+    							CommonLog.d("commonSdk","payerror--->" + error);
     							int  resultCode=0;
     							String  result = "订购结果：订购失败";
     							// flag为支付回调结果，flag2为回调类型，error为当前结果描述，paycode是完整的支付编码
@@ -340,35 +203,35 @@ public class CommonUnipay  extends  CommonBaseSdk {
     								//此处放置支付请求已提交的相关处理代码
     								resultCode=1;
     					    		result="支付成功";
-    					    		Log.d("commonSdk","i am success"+error);
-    					    		Log.d("commonSdk","i am success"+flag2);
+    					    		CommonLog.d("commonSdk","i am success"+error);
+    					    		CommonLog.d("commonSdk","i am success"+flag2);
     								break;
 
     							case 2://fail
     								//此处放置支付请求失败的相关处理代码
     								resultCode=-1;
     					    		result="支付失败";
-    					    		Log.d("commonSdk","i am failed"+error);
-    					    		Log.d("commonSdk","i am failed"+flag2);
+    					    		CommonLog.d("commonSdk","i am failed"+error);
+    					    		CommonLog.d("commonSdk","i am failed"+flag2);
     								break;
     								
     							case 3://cancel
     								//此处放置支付请求被取消的相关处理代码
     								resultCode=0;
     					    		result="支付取消";
-    					    		Log.d("commonSdk","i am cancel"+error);
-    					    		Log.d("commonSdk","i am cancel"+flag2);
+    					    		CommonLog.d("commonSdk","i am cancel"+error);
+    					    		CommonLog.d("commonSdk","i am cancel"+flag2);
     								break;
     								
     							default:
     								resultCode=-2;
     					    		result="未知的支付";
-    					    		Log.d("commonSdk","i am other"+error);
-    					    		Log.d("commonSdk","i am other"+flag2);
+    					    		CommonLog.d("commonSdk","i am other"+error);
+    					    		CommonLog.d("commonSdk","i am other"+flag2);
     								break;
     								}
     							
-    							Log.d("commonSdk","unipay finish! code ==" + String.valueOf(resultCode));
+    							CommonLog.d("commonSdk","unipay finish! code ==" + String.valueOf(resultCode));
     							
     					    	JsonObject jsonParms=new JsonObject();
     							jsonParms.add("code",resultCode);
@@ -378,7 +241,7 @@ public class CommonUnipay  extends  CommonBaseSdk {
     							CommonBaseSdk.JsonRpcCall(CommonBaseSdk.Lua_Cmd_PayResult,jsonParms);
     							
     						}});
-    					Log.d("commonSdk","pay finish");
+    					CommonLog.d("commonSdk","pay finish");
     				} catch (Exception e) {
     					e.printStackTrace();
     				}
@@ -389,7 +252,7 @@ public class CommonUnipay  extends  CommonBaseSdk {
           
 			
 		} catch (Exception e) { 
-			MoaiLog.i(" OpenPay is Error:"+e.getMessage());
+			CommonLog.i(" OpenPay is Error:"+e.getMessage());
 		}		
 		
 		 return "OK";

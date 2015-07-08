@@ -68,29 +68,11 @@ public class CommonCTCC  extends  CommonBaseSdk {
 	public static JsonValue orderParms;
 	public static ProgressDialog mProgressDialog;
 	public static final String egameAppPackageName = "com.egame";
-	//cop
-	public static String configInfo_1 = "{\"tollgate\":[0], \"gifttype\":4,\"itemstype\":1, \"prob\":[0],\"type\":[0],\"mode\":1,\"sdkid\":1,\"merger\":1}";
-	public static String copGameId = "";
-	public static String copChannelId = "";
-	public static String Ip = "";
-	public static String copAddr = "";
-	public static int recBuyStyle = 1;
-	public static String requestUrl ="http://www.baopiqi.com/api/gift.php?gameid=6&qudao=42&uid=5b92f04bbc41526d&ver=1.0.42&os=android-4.2.2&devices=L39u&ip=182.149.194.45&iccid=89860113881048662744&imsi=460018290507233&ratio=1794x1080";
-	//cop
-	//格式化GateWay链接
-	public static JsonObject SDKFormatGateWay(String uid,JsonObject jsonData)
-	{
-		JsonObject jsonParms=new JsonObject();
-		jsonParms.add("gatewayurl", sConfigJsonObject.get("gateWayUrl").asString());
-		jsonParms.add("gatewaypath", sConfigJsonObject.get("gateWayPath").asString());	
-		jsonParms.add("uid",uid);	
-		jsonParms.add("data", jsonData);
-		return jsonParms; 
-	}
+	
 
 	//SDK初始化	  
 	public  void SDKInit(String parms){	 
-		Log.d("commonSdk","ctcc init!");
+		CommonLog.d("commonSdk","ctcc init!");
 		payCodeConfig.setPayCodeConfig(); 		
 		String appid=GetJsonVal(sConfigJsonObject,"appid","0");
 		String appkey=GetJsonVal(sConfigJsonObject,"appkey","0");
@@ -111,7 +93,7 @@ public class CommonCTCC  extends  CommonBaseSdk {
 //是否退出时执行
 	public static String V2_exitGame(JsonValue parms){
 		
- 	Log.d("commonSdk", "V2_exitGame" );
+ 	CommonLog.d("commonSdk", "V2_exitGame" );
  	
  	CommonBaseSdk.sActivity.runOnUiThread(new Runnable() {		
  		@Override
@@ -137,181 +119,38 @@ public class CommonCTCC  extends  CommonBaseSdk {
  	
  	return "";
 	}
-
-	///打开登陆界面
-	public  static String V2_login(JsonValue parms){ 
-		//登陆
-		//V2_OpenMoreGame(parms);
-		 
-		 return "OK";
-	};
  
- 
-	/*********************************cop*************************************/
-	//获取本机ip
-		
-		public static String getNetIp() {
-			URL infoUrl = null;
-			InputStream inStream = null;
-			try {
-				infoUrl = new URL("http://1111.ip138.com/ic.asp");
-				URLConnection connection = infoUrl.openConnection();
-			  
-				HttpURLConnection httpConnection = (HttpURLConnection)connection;
-				int responseCode = httpConnection.getResponseCode();
-				if(responseCode == HttpURLConnection.HTTP_OK)
-				{
-					inStream = httpConnection.getInputStream();
-					BufferedReader reader = new BufferedReader(new InputStreamReader(inStream,"gb2312"));
-					StringBuilder strber = new StringBuilder();
-					String line = null;
-					while ((line = reader.readLine()) != null)
-						strber.append(line + "\n");
-					inStream.close();
-					System.out.println("net-result----->"+strber);
-					//从反馈的结果中提取出IP地址
-					int start = strber.indexOf("[");
-					int end = strber.indexOf("]", start + 1);
-					line = strber.substring(start + 1, end);
-					return line;
-				}
-			}
-			catch(MalformedURLException e) {
-				e.printStackTrace();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-		
-		//获取cop请求串
-		public static String getRequestUrl(){
-			
-			String reseultUrl = "";
-			
-			try {
-				
-				
-				copGameId = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"copGameId","53");
-				copChannelId = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"copChannelId","42");
-				Ip = getNetIp();
-				copAddr = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"copAddr","http://www.baopiqi.com/api/");
-				String deviceCode = Secure.getString(sActivity.getBaseContext().getContentResolver(), Secure.ANDROID_ID);
-				
-				Log.d("commonSdk", "requestUrl----->copGameId" + copGameId);
-				Log.d("commonSdk", "requestUrl----->copChannelId" + copChannelId);
-				Log.d("commonSdk", "requestUrl----->Ip" + Ip);
-				Log.d("commonSdk", "requestUrl----->copAddr" + copAddr);
-				Log.d("commonSdk", "requestUrl----->deviceCode" + deviceCode);
-				
-				
-				TelephonyManager mTelephonyMgr = (TelephonyManager)sActivity.getSystemService(Context.TELEPHONY_SERVICE);
-				String imsi = mTelephonyMgr.getSubscriberId();
-				String iccid = mTelephonyMgr.getSimSerialNumber();
-				String version = "";
-				
-				Log.d("commonSdk", "requestUrl----->imsi" + imsi);
-				Log.d("commonSdk", "requestUrl----->iccid" + iccid);
-				
-			
-				 try {
-				        PackageManager manager = sActivity.getPackageManager();
-				        PackageInfo info = manager.getPackageInfo(sActivity.getPackageName(), 0);
-				        version = info.versionName;
-				        
-				    } catch (Exception e) {
-				        e.printStackTrace();
-				    }
-				    
-				    Log.d("commonSdk", "requestUrl----->version" + version);
-				    
-				    String device =  android.os.Build.MODEL;
-				    device = device.replace(' ', '_');
-				    
-				    Log.d("commonSdk", "requestUrl----->device" + device);
-				    
-				    Display mDisplay = sActivity.getWindowManager().getDefaultDisplay();
-				    String W = String.valueOf(mDisplay.getWidth());
-				    String H = String.valueOf(mDisplay.getHeight());
-				    
-				    String ratio = W + 'x' +H;
-				    
-				    Log.d("commonSdk", "requestUrl----->ratio" + ratio);
-
-				   
-				    reseultUrl = copAddr + "gift.php?" + "gameid=" +copGameId + "&qudao=" +copChannelId + "&uid=" +deviceCode + "&ver=" +version;
-				    reseultUrl = reseultUrl + "&os=" +"android-"+android.os.Build.VERSION.RELEASE  + "&devices=" +device +"&ip=" +Ip +"&iccid=" +iccid + "&imsi=" + imsi +"&ratio=" +ratio ;
-				    
-				 
-				    Log.d("commonSdk","copRequestUrl------->" + reseultUrl);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 	
-			return reseultUrl;
-		}
-		
-		public void doCop(){
-			
-			requestUrl = getRequestUrl();
-			Log.d("commonSdk", "requestUrl----->" + requestUrl);
-			
-	 		String configInfo = sendGet(requestUrl);
-	 		configInfo = configInfo.replace(":,", ":1,");
-	 		
-	 		JsonObject dataJson;
-	 		try{
-	 			dataJson = JsonObject.readFrom(configInfo);
-	 		    
-	 		}catch(Exception e){
-	 			dataJson = JsonObject.readFrom(configInfo_1);
-	 		}
-		
-	 		Log.d("commonSdk","copDataRespon------->" + dataJson.toString());
-	 		recBuyStyle = CommonBaseSdk.GetJsonValInt(dataJson, "gifttype", 1);
-	 		
-	 		if(recBuyStyle > 10){
-	 		recBuyStyle = recBuyStyle%10 + 1;
-	 		}
-	 		else { recBuyStyle = recBuyStyle/10 + 1; }
-	 		
-		}
-		
-		/*********************************cop*************************************/	
-		
-		
-		
-		public void ResultChannelInfo(){
+	public void ResultChannelInfo(){
 		         
-				Log.d("commonSdk","ResultChannelInfo");	
+				CommonLog.d("commonSdk","ResultChannelInfo");	
 				
-				doCop();	
+				CommonTool.doCop(sConfigJsonObject,sActivity);	
 				
 		        JsonObject channelInfo=new JsonObject();
-		        channelInfo.add("recBuyStyle", recBuyStyle);
-		        channelInfo.add("chn", "ctcc");
+		        channelInfo.add("recBuyStyle", CommonTool.recBuyStyle);
+		        String channel = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"packageChannel","ctcc");
+		        channelInfo.add("chn", channel);
 		        channelInfo.add("isThirdExit",true);
-		        channelInfo.add("isMoreGame",true);
+		      //  channelInfo.add("isMoreGame",true);
 		           
-		        Log.d("commonSdk","ResultChannelInfo----->"+ channelInfo.toString());
+		        CommonLog.d("commonSdk","ResultChannelInfo----->"+ channelInfo.toString());
 		        
 		        JsonRpcCall(Lua_Cmd_ResultChannelInfo,channelInfo);  
 		    }	
-		/*********************************cop*************************************/
 		
 	public static String V2_openMoreGame(JsonValue parms){
 			//CheckTool.more(CommonBaseSdk.sActivity);//用不了
 				
-				Log.d ("commonSdk","V2_openMoreGame");
+				CommonLog.d ("commonSdk","V2_openMoreGame");
 				try{
 					
-					Log.d ("commonSdk","V2_openMoreGame --> Normal");
+					CommonLog.d ("commonSdk","V2_openMoreGame --> Normal");
 					
 					Intent intent = CommonBaseSdk.sActivity.getPackageManager().getLaunchIntentForPackage(egameAppPackageName);
 					CommonBaseSdk.sActivity.startActivity(intent);
 				}catch(Exception ex){
 					
-					Log.d ("commonSdk","V2_openMoreGame --> Exception");
+					CommonLog.d ("commonSdk","V2_openMoreGame --> Exception");
 					
 					Intent intent = new Intent("android.intent.action.VIEW");
 					intent.setData(Uri.parse("http://play.cn/"));
@@ -328,7 +167,7 @@ public class CommonCTCC  extends  CommonBaseSdk {
 			
 			
 			orderParms = parms;
-			Log.d("commonSdk","uniPay ---> " + parms.toString());
+			CommonLog.d("commonSdk","uniPay ---> " + parms.toString());
 			JsonObject _json = parms.asObject();
 			
             JsonObject  payinfoJson=_json.get("payInfo").asObject();
@@ -339,6 +178,8 @@ public class CommonCTCC  extends  CommonBaseSdk {
             int price=GetJsonValInt(payinfoJson,"price",0);
 
             int total=GetJsonValInt(payinfoJson,"total",0);
+            
+            String payCode = CommonBaseSdk.GetJsonVal(payinfoJson, "info", "001");
 
             String number=GetJsonVal(payinfoJson,"number","0");
             String roleId=GetJsonVal(userinfoJson,"roleId","12345678912345677");
@@ -349,6 +190,15 @@ public class CommonCTCC  extends  CommonBaseSdk {
             bConfig.number=number;
             bConfig.money=total;
             bConfig=payCodeConfig.getPayCodeConfig(bConfig);
+            
+            CommonLog.d("commonSdk","payCode == " + payCode);
+            CommonLog.d("commonSdk","bConfig.payCode == " + bConfig.payCode);
+            
+            if(!payCode.equals(bConfig.payCode)){
+           	 
+           	 CommonLog.e("commonSdk","计费点已修改");
+           	 return "";
+            }
             
             
             HashMap<String, String> payParams=new HashMap<String, String>();
@@ -369,7 +219,7 @@ public class CommonCTCC  extends  CommonBaseSdk {
           
 			
 		} catch (Exception e) { 
-			Log.e("commonSdk", "OpenPay is Error:"+e.getMessage());
+			CommonLog.e("commonSdk", "OpenPay is Error:"+e.getMessage());
 		}		
 		
 		 return "OK";
@@ -384,8 +234,8 @@ public class CommonCTCC  extends  CommonBaseSdk {
 		EgamePay.pay(CommonBaseSdk.sActivity, payParams,new EgamePayListener() {
 			@Override
 			public void paySuccess(Map<String, String> params) {
-				//dialog.setMessage("道具"+params.get(EgamePay.PAY_PARAMS_KEY_TOOLS_DESC)+"支付成功");
-				//dialog.show();
+				//diaCommonLog.setMessage("道具"+params.get(EgamePay.PAY_PARAMS_KEY_TOOLS_DESC)+"支付成功");
+				//diaCommonLog.show();
 				JsonObject jsonParms=new JsonObject();
 				jsonParms.add("code", 1);
 				jsonParms.add("msg", "支付成功");
@@ -399,8 +249,8 @@ public class CommonCTCC  extends  CommonBaseSdk {
 			 	
 			@Override
 			public void payFailed(Map<String, String> params, int errorInt) {
-				//dialog.setMessage("道具"+params.get(EgamePay.PAY_PARAMS_KEY_TOOLS_DESC)+"支付失败：错误代码："+errorInt);
-				//dialog.show();
+				//diaCommonLog.setMessage("道具"+params.get(EgamePay.PAY_PARAMS_KEY_TOOLS_DESC)+"支付失败：错误代码："+errorInt);
+				//diaCommonLog.show();
 				String msg="支付失败：错误代码："+errorInt;
 				if(errorInt==-100) msg="Activity对象为空";
 				if(errorInt==-101) msg="计费文件未找到或者数据读取异常";
@@ -420,20 +270,20 @@ public class CommonCTCC  extends  CommonBaseSdk {
 				jsonParms.add("code", errorInt);
 				jsonParms.add("msg", msg);
 				jsonParms.add("payData",CommonCTCC.orderParms.asObject());				 
-				//计费成功
+				
 				CommonBaseSdk.JsonRpcCall(CommonBaseSdk.Lua_Cmd_PayResult,jsonParms);
 			}
 			
 			
 			@Override
 			public void payCancel(Map<String, String> params) {
-				//dialog.setMessage("道具"+params.get(EgamePay.PAY_PARAMS_KEY_TOOLS_DESC)+"支付已取消");
-				//dialog.show();
+				//diaCommonLog.setMessage("道具"+params.get(EgamePay.PAY_PARAMS_KEY_TOOLS_DESC)+"支付已取消");
+				//diaCommonLog.show();
 				JsonObject jsonParms=new JsonObject();
 				jsonParms.add("code", 0);
 				jsonParms.add("msg", "支付已取消");
 				jsonParms.add("payData",CommonCTCC.orderParms.asObject());				 
-				//计费成功
+				
 				CommonBaseSdk.JsonRpcCall(CommonBaseSdk.Lua_Cmd_PayResult,jsonParms);
 			}
 		});

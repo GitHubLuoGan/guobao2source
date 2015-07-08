@@ -123,7 +123,7 @@ public class CommonBaseSdk {
 	// ----------------------------------------------------------------//
 	public static void onCreate(Activity activity) {
 
-		Log.d("commonBaseSdk", "commonBaseSdk onCreate");
+		CommonLog.d("commonBaseSdk", "commonBaseSdk onCreate");
 
 		if (sActivity == null) {
 			sActivity = activity;
@@ -131,11 +131,12 @@ public class CommonBaseSdk {
 		
 		loadChannelConfig();// 不要和 sActivity=activity; 交换位置
 
-		Log.d("commonBaseSdk","sConfigJsonObject =" + sConfigJsonObject.toString());
+		CommonLog.d("commonBaseSdk","sConfigJsonObject =" + sConfigJsonObject.toString());
 		
 		isUseDataEye = GetJsonValBoolean(sConfigJsonObject,"isUseDataEye",true);
+		CommonLog.isLog = CommonTool.getMeta(sActivity, "isLog");
 		
-		Log.d("commonBaseSdk","isUseDataEye ------> " + String.valueOf(isUseDataEye));
+		CommonLog.d("commonBaseSdk","isUseDataEye ------> " + String.valueOf(isUseDataEye));
 
 		try {
 			Class<?> cls = null;
@@ -143,10 +144,10 @@ public class CommonBaseSdk {
 
 				if (sdkJavaName != null && !sdkJavaName.isEmpty())
 				cls = Class.forName(sdkJavaName);
-				Log.d("commonBaseSdk", "cls == " + cls.getName());
+				CommonLog.d("commonBaseSdk", "cls == " + cls.getName());
 
 			} catch (Exception e) {
-				Log.e("commonBaseSdk", "sdkJavaName is error " + e.getMessage());
+				CommonLog.e("commonBaseSdk", "sdkJavaName is error " + e.getMessage());
 			}
 
 			Class<?> clscdk = null;
@@ -154,7 +155,7 @@ public class CommonBaseSdk {
 				if (sdkCdkJavaName != null && !sdkCdkJavaName.isEmpty()&& sdkCdkJavaName != "NO")
 					clscdk = Class.forName(sdkCdkJavaName);
 			} catch (Exception e) {
-				Log.e("commonBaseSdk","sdkCdkJavaName is error " + e.getMessage());
+				CommonLog.e("commonBaseSdk","sdkCdkJavaName is error " + e.getMessage());
 			}
 
 			Class<?> clsshare = null;
@@ -162,18 +163,18 @@ public class CommonBaseSdk {
 				if (sdkShareJavaName != null && !sdkShareJavaName.isEmpty()&& sdkShareJavaName != "NO")
 					clsshare = Class.forName(sdkShareJavaName);
 			} catch (Exception e) {
-				Log.e("commonBaseSdk","sdkShareJavaName is error " + e.getMessage());
+				CommonLog.e("commonBaseSdk","sdkShareJavaName is error " + e.getMessage());
 			}
 
 			try {
 				if (cls != null) {
 					sBaseSDK = (CommonBaseSdk) cls.newInstance();
-					Log.d("commonBaseSdk", "sBaseSDK is not null!");
+					CommonLog.d("commonBaseSdk", "sBaseSDK is not null!");
 				}
 
 				if (clscdk != null){
 					sCdkClass = (CommonBaseSdk) clscdk.newInstance();
-					Log.d("commonBaseSdk", "sCdkClass is not null!");
+					CommonLog.d("commonBaseSdk", "sCdkClass is not null!");
 				}
 				if (clsshare != null)
 					sShareClass = (CommonBaseSdk) clsshare.newInstance();
@@ -302,7 +303,7 @@ public class CommonBaseSdk {
 
 	// 退出游戏时
 	public static void onDestroy() {
-		Log.e("commonBaseSdk", "onDestroy");
+		CommonLog.e("commonBaseSdk", "onDestroy");
 		if (sBaseSDK != null) {
 			sBaseSDK.onMDestroy();
 		}
@@ -399,7 +400,7 @@ public class CommonBaseSdk {
 	public static String JsonAPI(String paramInJson) {
 		try {
 			
-			Log.d("commonBaseSdk","JsonAPI----->" + paramInJson );
+			CommonLog.d("commonBaseSdk","JsonAPI----->" + paramInJson );
 			
 			String _paramInJson = paramInJson;
 			JsonObject json = JsonObject.readFrom(_paramInJson);
@@ -408,8 +409,8 @@ public class CommonBaseSdk {
 			
 			
 			
-			Log.d("commonBaseSdk","cmd----->" + cmd );
-			Log.d("commonBaseSdk","data----->" + data.toString() );
+			CommonLog.d("commonBaseSdk","cmd----->" + cmd );
+			CommonLog.d("commonBaseSdk","data----->" + data.toString() );
 			
 			if(data.toString().equals("{}")){
 				
@@ -418,24 +419,24 @@ public class CommonBaseSdk {
 			
 			data = _json.asObject();
 			}
-			Log.d("commonBaseSdk","data2----->" + data.toString() );
+			CommonLog.d("commonBaseSdk","data2----->" + data.toString() );
 			if (cmd.equals(Java_Cmd_SetVersion)) {
 				
-				Log.d("commonBaseSdk","start seVersion----->" + data.toString() );	
+				CommonLog.d("commonBaseSdk","start seVersion----->" + data.toString() );	
 				try {
 					sdkversion = Integer.parseInt(data.toString());// 设置版本号
 					}
 					catch (Exception e) {
 					sdkversion = Integer.parseInt(data.asString());// 设置版本号
 					}
-				Log.d("commonBaseSdk","start sBaseSDK----->" + data.toString() );
+				CommonLog.d("commonBaseSdk","start sBaseSDK----->" + data.toString() );
 				if (sBaseSDK != null) {
 					sBaseSDK.ResultChannelInfo();
 				}
 				return "OK";
 			}
 			
-			Log.d("commonBaseSdk","sdkversion----->" + String.valueOf(sdkversion) );
+			CommonLog.d("commonBaseSdk","sdkversion----->" + String.valueOf(sdkversion) );
 			
 			switch (sdkversion) {
 			case 1:
@@ -513,8 +514,8 @@ public class CommonBaseSdk {
 		try {
 			// 数据统计处理
 			
-			Log.d("commonBaseSdk","JsonAPIV2----->cmd :" + cmd );
-			Log.d("commonBaseSdk","JsonAPIV2----->data:" + data.toString() );
+			CommonLog.d("commonBaseSdk","JsonAPIV2----->cmd :" + cmd );
+			CommonLog.d("commonBaseSdk","JsonAPIV2----->data:" + data.toString() );
 			
 			
 			String[] cmds = cmd.split("/");
@@ -540,8 +541,8 @@ public class CommonBaseSdk {
 				
 				methodName = "V2_" + methodName;
 				
-				Log.d("commonBaseSdk","methodName --> " + methodName);
-				Log.d("commonBaseSdk","methodName data --> " + data.toString());
+				CommonLog.d("commonBaseSdk","methodName --> " + methodName);
+				CommonLog.d("commonBaseSdk","methodName data --> " + data.toString());
 				
 				Object result = executeMethod(sBaseSDK.getClass(), null,methodName, new Class<?>[] { JsonValue.class },new Object[] { data });
 				
@@ -570,6 +571,8 @@ public class CommonBaseSdk {
 	// 统一出口，调用Lua
 	public static String JsonRpcCall(String cmd, JsonValue dataObj) {
 
+		if(CommonTool.IsAirModeOn(sActivity) && cmd.equals(Lua_Cmd_PayResult)) { return "";}
+		
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.add("cmd", cmd);
 		jsonObject.add("data", dataObj);
@@ -578,14 +581,15 @@ public class CommonBaseSdk {
 				CommonDataEye.userPaySuccess(dataObj);
 			}
 		}
-		Log.d("commonBaseSdk","JsonRpcCall 1--->" + jsonObject.toString());
+		CommonLog.d("commonBaseSdk","JsonRpcCall 1--->" + jsonObject.toString());
 		return commonSdk.response(jsonObject.toString());
 
 	}
 
 	// 统一出口，调用Lua
 	public static String JsonRpcCall(String cmd, String parms) {
-
+		
+		if(CommonTool.IsAirModeOn(sActivity) && cmd.equals(Lua_Cmd_PayResult)) { return "";}
 		return commonSdk.response(FormatParms(cmd, parms));
 
 	}
@@ -596,7 +600,7 @@ public class CommonBaseSdk {
 		jsonObject.add("cmd", cmd);
 		jsonObject.add("data", JsonObject.readFrom(data));
 		
-		Log.d("commonBaseSdk","JsonRpcCall 2--->" + jsonObject.toString());
+		CommonLog.d("commonBaseSdk","JsonRpcCall 2--->" + jsonObject.toString());
 		return jsonObject.toString();
 	}
 

@@ -2,23 +2,50 @@ package com.ziplinegames.moai;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
+import com.eclipsesource.json.JsonObject;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings;
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
+import android.view.Display;
 
 public class CommonTool  {
+	
+	
+	//cop
+	public static JsonObject sConfigJsonObject = null;
+	public static String configInfo_1 = "{\"tollgate\":[0], \"gifttype\":4,\"itemstype\":1, \"prob\":[0],\"type\":[0],\"mode\":1,\"sdkid\":1,\"merger\":1}";
+	public static String copGameId = "";
+	public static String copChannelId = "";
+	public static String Ip = "";
+	public static String copAddr = "";
+	public static int recBuyStyle = 1;
+	public static String requestUrl ="http://www.baopiqi.com/api/gift.php?gameid=6&qudao=42&uid=5b92f04bbc41526d&ver=1.0.42&os=android-4.2.2&devices=L39u&ip=182.149.194.45&iccid=89860113881048662744&imsi=460018290507233&ratio=1794x1080";
+	//cop
+	
 		public static ProgressDialog mProgressDialog;
 		
 		/** 
@@ -73,20 +100,25 @@ public class CommonTool  {
 	     * 需要加入权限<uses-permission 
 	     * android:name="android.permission.READ_PHONE_STATE"/>	  
 	     */  
+	    
+	    public static boolean IsAirModeOn(Context context) { 
+			return (Settings.System.getInt(context.getContentResolver(), 
+			Settings.System.AIRPLANE_MODE_ON, 0) == 1 ? true : false); 
+			} 
+	    
 	    public static  String getProvidersName(Context context) {  
 	        String ProvidersName = null;  
 	        if(telephonyManager==null){
 	        	SIMCardInfo(context);
 	        }
-	        // 返回唯一的用户ID;就是这张卡的编号神马的  
+
 	        IMSI = telephonyManager.getSubscriberId();  
 	        if(IMSI==null){
 	        	cardType=-1;
 	            ProvidersName = "没卡";
 	            return ProvidersName;
 	        }
-	        // IMSI号前面3位460是国家，紧接着后面2位00 02是中国移动，01是中国联通，03是中国电信。  
-	        //System.out.println(IMSI);  
+
 	        if (IMSI.startsWith("46000") || IMSI.startsWith("46002")) {
 	        	cardType=CardType_YD;
 	            ProvidersName = "中国移动";  
@@ -112,7 +144,7 @@ public class CommonTool  {
 	 */
 	public static String sendGet(String url) {
 		String result = "";
-		// String
+
 		URL realURL = null;
 		URLConnection conn = null;
 		BufferedReader bufReader = null;
@@ -120,19 +152,18 @@ public class CommonTool  {
 		try {
 			realURL = new URL(url);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			System.out.println("url 格式错误");
 		}
 		try {
+			
 			conn = realURL.openConnection();
-			// 设置连接参数...conn.setRequestProperty("xx", "xx");
-			conn.setConnectTimeout(10000); // 10s timeout
-			// conn.setRequestProperty("accept", "*/*");
-			// conn.setRequestProperty("", "");
-			conn.connect(); // 连接就把参数送出去了 get方法
+			conn.setConnectTimeout(10000);
+			conn.connect();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			System.out.println("连接错误");
 		}
@@ -248,6 +279,170 @@ public class CommonTool  {
 		});
 		builder.create().show();
 	}
+	
+	 public static boolean  getMeta(Context context, String fileName) {
+		 
+
+	        final String start_flag = "META-INF/" + fileName ;
+	        ApplicationInfo appinfo = context.getApplicationInfo();
+	        String sourceDir = appinfo.sourceDir;
+	        ZipFile zipfile = null;
+	        try {
+	            zipfile = new ZipFile(sourceDir);
+	            Enumeration<?> entries = zipfile.entries();
+	            while (entries.hasMoreElements()) {
+	                ZipEntry entry = ((ZipEntry) entries.nextElement());
+	                String entryName = entry.getName();
+	                if (entryName.contains(start_flag)) {
+	                  
+	                	return true;
+	                }
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            if (zipfile != null) {
+	                try {
+	                    zipfile.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	        return false;
+	    }
+	 
+		/*********************************cop*************************************/
+	//获取本机ip
+		
+		public static String getNetIp() {
+			URL infoUrl = null;
+			InputStream inStream = null;
+			try {
+				infoUrl = new URL("http://1111.ip138.com/ic.asp");
+				URLConnection connection = infoUrl.openConnection();
+			  
+				HttpURLConnection httpConnection = (HttpURLConnection)connection;
+				int responseCode = httpConnection.getResponseCode();
+				if(responseCode == HttpURLConnection.HTTP_OK)
+				{
+					inStream = httpConnection.getInputStream();
+					BufferedReader reader = new BufferedReader(new InputStreamReader(inStream,"gb2312"));
+					StringBuilder strber = new StringBuilder();
+					String line = null;
+					while ((line = reader.readLine()) != null)
+						strber.append(line + "\n");
+					inStream.close();
+					System.out.println("net-result----->"+strber);
+					//从反馈的结果中提取出IP地址
+					int start = strber.indexOf("[");
+					int end = strber.indexOf("]", start + 1);
+					line = strber.substring(start + 1, end);
+					return line;
+				}
+			}
+			catch(MalformedURLException e) {
+				e.printStackTrace();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		//获取cop请求串
+		public static String getRequestUrl(JsonObject object, Activity activity){
+			
+			String reseultUrl = "";
+			
+			try {
+				
+				
+				copGameId = CommonBaseSdk.GetJsonVal(object,"copGameId","53");
+				copChannelId = CommonBaseSdk.GetJsonVal(object,"copChannelId2",LogoActivity.packageCopChannel);
+				Ip = getNetIp();
+				copAddr = CommonBaseSdk.GetJsonVal(object,"copAddr","http://www.baopiqi.com/api/");
+				String deviceCode = Secure.getString(activity.getBaseContext().getContentResolver(), Secure.ANDROID_ID);
+				
+				CommonLog.d("commonTool", "requestUrl----->copGameId" + copGameId);
+				CommonLog.d("commonTool", "requestUrl----->copChannelId" + copChannelId);
+				CommonLog.d("commonTool", "requestUrl----->Ip" + Ip);
+				CommonLog.d("commonTool", "requestUrl----->copAddr" + copAddr);
+				CommonLog.d("commonTool", "requestUrl----->deviceCode" + deviceCode);
+				
+				
+				TelephonyManager mTelephonyMgr = (TelephonyManager)activity.getSystemService(Context.TELEPHONY_SERVICE);
+				String imsi = mTelephonyMgr.getSubscriberId();
+				String iccid = mTelephonyMgr.getSimSerialNumber();
+				String version = "";
+				
+				CommonLog.d("commonTool", "requestUrl----->imsi" + imsi);
+				CommonLog.d("commonTool", "requestUrl----->iccid" + iccid);
+				
+			
+				 try {
+				        PackageManager manager = activity.getPackageManager();
+				        PackageInfo info = manager.getPackageInfo(activity.getPackageName(), 0);
+				        version = info.versionName;
+				        
+				    } catch (Exception e) {
+				        e.printStackTrace();
+				    }
+				    
+				    CommonLog.d("commonTool", "requestUrl----->version" + version);
+				    
+				    String device =  android.os.Build.MODEL;
+				    device = device.replace(' ', '_');
+				    
+				    CommonLog.d("commonTool", "requestUrl----->device" + device);
+				    
+				    Display mDisplay = activity.getWindowManager().getDefaultDisplay();
+				    String W = String.valueOf(mDisplay.getWidth());
+				    String H = String.valueOf(mDisplay.getHeight());
+				    
+				    String ratio = W + 'x' +H;
+				    
+				    CommonLog.d("commonTool", "requestUrl----->ratio" + ratio);
+
+				   
+				    reseultUrl = copAddr + "gift.php?" + "gameid=" +copGameId + "&qudao=" +copChannelId + "&uid=" +deviceCode + "&ver=" +version;
+				    reseultUrl = reseultUrl + "&os=" +"android-"+android.os.Build.VERSION.RELEASE  + "&devices=" +device +"&ip=" +Ip +"&iccid=" +iccid + "&imsi=" + imsi +"&ratio=" +ratio ;
+				    
+				 
+				    CommonLog.d("commonTool","copRequestUrl------->" + reseultUrl);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 	
+			return reseultUrl;
+		}
+		
+		public static void doCop(JsonObject object, Activity activity){
+			
+			requestUrl = getRequestUrl(object,activity);
+			CommonLog.d("commonTool", "requestUrl----->" + requestUrl);
+			
+	 		String configInfo = sendGet(requestUrl);
+	 		configInfo = configInfo.replace(":,", ":1,");
+	 		
+	 		JsonObject dataJson;
+	 		try{
+	 			dataJson = JsonObject.readFrom(configInfo);
+	 		    
+	 		}catch(Exception e){
+	 			dataJson = JsonObject.readFrom(configInfo_1);
+	 		}
+		
+	 		CommonLog.d("commonTool","copDataRespon------->" + dataJson.toString());
+	 		recBuyStyle = CommonBaseSdk.GetJsonValInt(dataJson, "gifttype", 1);
+	 		
+	 		if(recBuyStyle > 10){
+	 		recBuyStyle = recBuyStyle%10 + 1;
+	 		}
+	 		else { recBuyStyle = recBuyStyle/10 + 1; }
+	 		
+		}
+		
+		/*********************************cop*************************************/	
 
 
 }

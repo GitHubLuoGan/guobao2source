@@ -77,7 +77,7 @@ public static String sendGet(String url) {
 
 public static String useCdkey(JsonValue parms){
 	
-	Log.d("commonCdk", "useCdkey -----> "+ parms.toString() );
+	CommonLog.d("commonCdk", "useCdkey -----> "+ parms.toString() );
 	
 	JsonObject jsonParms = parms.asObject();
 	
@@ -88,7 +88,7 @@ public static String useCdkey(JsonValue parms){
 	
 	String url=String.format("%s?userId=%s&cdkStr=%s&appId=%s&channelId=%s",UseCDKEYUrl, roleid,cdkey,appId,channelId);
 	
-	Log.d("commonCdk", "useCdkey -----> requsturl1 "+ url );
+	CommonLog.d("commonCdk", "useCdkey -----> requsturl1 "+ url );
 	
 	 String resultStr=sendGet(url);
 	 
@@ -97,11 +97,11 @@ public static String useCdkey(JsonValue parms){
 	 resultStr = resultStr.replace("\"0\"", "\"1\"");
 	 resultStr = resultStr.replace("message", "data");
 	 
-	 Log.d("commonCdk", "useCdkey -----> resultStr2 "+ resultStr );
+	 CommonLog.d("commonCdk", "useCdkey -----> resultStr2 "+ resultStr );
 	 
 	 CommonBaseSdk.JsonRpcCall(Lua_Cmd_UseCdkey,JsonObject.readFrom(resultStr));
 	 
-	 Log.d("commonCdk", "useCdkey -----> finish1! ");
+	 CommonLog.d("commonCdk", "useCdkey -----> finish1! ");
 	
 	 return "ok";
 }
