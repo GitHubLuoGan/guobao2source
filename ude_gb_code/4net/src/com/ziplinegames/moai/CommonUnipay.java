@@ -86,7 +86,7 @@ public class CommonUnipay  extends  CommonBaseSdk {
 		         
 			CommonLog.d("commonSdk","ResultChannelInfo");	
 				
-				CommonTool.doCop(sConfigJsonObject,sActivity);	
+				//CommonTool.doCop(sConfigJsonObject,sActivity);	
 				
 		        JsonObject channelInfo=new JsonObject();
 		        channelInfo.add("recBuyStyle", CommonTool.recBuyStyle);

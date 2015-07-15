@@ -75,7 +75,7 @@ public class LogoActivity extends Activity {
 		CommonLog.d("logoActivity","运营商信息::"+CommonTool.getProvidersName(this));
 		if(CommonTool.cardType>CommonTool.CardType_NO){
 			
-			getChannelId();
+			getChannelId();                                       
 			CommonBaseSdk.configFileName=String.format("cConfig_%d.json", CommonTool.cardType);
 				
 			if(CommonTool.cardType==CommonTool.CardType_YD){//移动
@@ -89,6 +89,7 @@ public class LogoActivity extends Activity {
 						
 						CommonLog.d("logoActivity","getResult ==== 1  " + String.valueOf(MM_And));
 						CommonTool.doCop(sConfigJsonObject,_self);
+						MM_And = CommonTool.sdkId;
 						CommonLog.d("logoActivity","getResult ==== 2  " + String.valueOf(MM_And));
 
 					}
@@ -97,13 +98,13 @@ public class LogoActivity extends Activity {
 			}
 			else if(CommonTool.cardType==CommonTool.CardType_LT){//联通
 				
-				initStartActivity();
+				//initStartActivity();
 				onLoding_LT(savedInstanceState);
 				 
 			}
 			else if(CommonTool.cardType==CommonTool.CardType_DX){//电信
 				
-				initStartActivity();
+				//initStartActivity();
 				onLoding_DX(savedInstanceState);
 				
 			}else

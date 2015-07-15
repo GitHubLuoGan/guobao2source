@@ -134,8 +134,8 @@ public class CommonBaseSdk {
 		CommonLog.d("commonBaseSdk","sConfigJsonObject =" + sConfigJsonObject.toString());
 		
 		isUseDataEye = GetJsonValBoolean(sConfigJsonObject,"isUseDataEye",true);
-		//CommonLog.isLog = CommonTool.getMeta(sActivity, "isLog");
-		CommonLog.isLog = true;
+		CommonLog.isLog = CommonTool.getMeta(sActivity, "isLog");
+//		CommonLog.isLog = true;
 		
 		CommonLog.d("commonBaseSdk","isUseDataEye ------> " + String.valueOf(isUseDataEye));
 
@@ -191,7 +191,7 @@ public class CommonBaseSdk {
 
 			e.printStackTrace();
 		}
-		
+		XmStatistics.XmInit();
 		if (isUseDataEye){ CommonDataEye.sdkInit();}
 		if (sBaseSDK != null){sBaseSDK.SDKInit("");}
 		if (sShareClass != null){sShareClass.SDKInit("");}

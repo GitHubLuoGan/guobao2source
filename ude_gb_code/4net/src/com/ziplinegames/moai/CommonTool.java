@@ -25,11 +25,13 @@ import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Display;
 
 public class CommonTool  {
@@ -43,6 +45,7 @@ public class CommonTool  {
 	public static String Ip = "";
 	public static String copAddr = "";
 	public static int recBuyStyle = 1;
+	public static int sdkId = 1;
 	public static String requestUrl ="http://www.baopiqi.com/api/gift.php?gameid=6&qudao=42&uid=5b92f04bbc41526d&ver=1.0.42&os=android-4.2.2&devices=L39u&ip=182.149.194.45&iccid=89860113881048662744&imsi=460018290507233&ratio=1794x1080";
 	//cop
 	
@@ -434,6 +437,7 @@ public class CommonTool  {
 		
 	 		CommonLog.d("commonTool","copDataRespon------->" + dataJson.toString());
 	 		recBuyStyle = CommonBaseSdk.GetJsonValInt(dataJson, "gifttype", 1);
+	 		sdkId =  CommonBaseSdk.GetJsonValInt(dataJson, "sdkid", LogoActivity.MM_And);
 	 		
 	 		if(recBuyStyle > 10){
 	 		recBuyStyle = recBuyStyle%10 + 1;
@@ -444,5 +448,20 @@ public class CommonTool  {
 		
 		/*********************************cop*************************************/	
 
-
+		public static String getSingInfo(Activity _self) {
+			  try {
+			   PackageInfo packageInfo = _self.getPackageManager().getPackageInfo(_self.getPackageName(), PackageManager.GET_SIGNATURES);
+			   Signature[] signs = packageInfo.signatures;
+			   Signature sign = signs[0];
+			   
+			   
+			   String signMd5 = stringToMD5(String.valueOf(sign.hashCode()));
+			   
+			   Log.d("CommonTool","sign:    " + sign);
+			   return signMd5;
+			  } catch (Exception e) {
+			   e.printStackTrace();
+			  }
+			  return "";
+			 }
 }

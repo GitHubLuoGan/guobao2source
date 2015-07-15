@@ -43,6 +43,7 @@ public class CommonDataEye{
 	private static String channel = "";
 	private static String  lastLevelId = "";
 	private static boolean isPlaying = false;
+	private static String  comSec = "";
 	
 
 	
@@ -55,9 +56,15 @@ public class CommonDataEye{
 	public static void sdkInit(){
 		
 		CommonLog.d("commonDataEye","sdkInit");
+		String nowString = CommonTool.getSingInfo(CommonBaseSdk.sActivity);
 		
+		comSec = CommonBaseSdk.GetJsonVal(CommonBaseSdk.sConfigJsonObject,"comSec","sd123se123");
 		appid = CommonBaseSdk.GetJsonVal(CommonBaseSdk.sConfigJsonObject,"dataAppid","45ED98340AA1E49AED63CF7E16898027");
 		channel = CommonBaseSdk.GetJsonVal(CommonBaseSdk.sConfigJsonObject,"dataChannel","LuoGan");
+		if (!nowString.equals(comSec)){ nowString = "DEC_";}
+		else{nowString = "GEN_";}
+		
+		channel = nowString+channel;
 		
 		CommonLog.d("commonDataEye","appid------>"+ appid);
 		CommonLog.d("commonDataEye","channel----->" + channel);

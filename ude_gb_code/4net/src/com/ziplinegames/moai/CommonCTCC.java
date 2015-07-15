@@ -130,7 +130,7 @@ public class CommonCTCC  extends  CommonBaseSdk {
 		        channelInfo.add("recBuyStyle", CommonTool.recBuyStyle);
 		        String channel = CommonBaseSdk.GetJsonVal(sConfigJsonObject,"packageChannel","ctcc");
 		        channelInfo.add("chn", channel);
-		        channelInfo.add("isThirdExit",true);
+		       // channelInfo.add("isThirdExit",true);
 		      //  channelInfo.add("isMoreGame",true);
 		           
 		        CommonLog.d("commonSdk","ResultChannelInfo----->"+ channelInfo.toString());
