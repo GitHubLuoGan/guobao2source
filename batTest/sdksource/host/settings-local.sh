@@ -11,7 +11,7 @@
 # slashes as directory separators, e.g. C:/android-sdk)
 #----------------------------------------------------------------#
 
-	android_sdk_root="E:/sdk/Android.Win"
+	android_sdk_root="E:/Developsoft/adt-bundle-windows-x86_64-20140702/sdk"
 
 #----------------------------------------------------------------#
 # space-delimited list of source lua directories to add to the 
@@ -70,4 +70,4 @@
 			fi
 	fi
 	
-MOAI14_SDK=E:/ude2/moai_release/sdk
+MOAI14_SDK=E:/ude_guobao2/batTest/gameProjetc/sdk

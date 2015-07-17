@@ -83,7 +83,7 @@
 #            google-billing, miscellaneous (required by google-billing)
 #----------------------------------------------------------------#
 # domob sharesdk
-	require_module="fmod dataeye domob ulcdkey"
+	# require_module="fmod dataeye domob ulcdkey"
 
 	if [ x"$channel_name" != x ]; then
 	    require_module="$require_module $channel_name"

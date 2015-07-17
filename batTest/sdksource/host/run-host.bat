@@ -16,7 +16,7 @@
 	) else (
 		set install_cmd=ant debug install	
 	)
-
+echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~1~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 	if %ERRORLEVEL% == 0 (
 		pushd build\project
 			call ant uninstall 

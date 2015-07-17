@@ -41,7 +41,7 @@
 	done
 
 	package=cn.ultralisk.guobao
-	package_path=src/cn/ultralisk/gameapp
+	#package_path=src/cn/ultralisk/gameapp
  
 	if [ x"$channel_name" = x"$channel_lua_name" ]; then
 		out_dir="`pwd`/build_$channel_name" 
@@ -70,17 +70,23 @@
 
 	mkdir -p $out_dir/project
 
-	mkdir -p $out_dir/project/assets
+
 
 	mkdir -p $out_dir/project/libs
 	cp -fR	$host_source/project/libs/*	$out_dir/project/libs
 	chmod 777 -R $host_source/project/libs/*
+
 	mkdir -p $out_dir/project/res
 	cp -fR	$host_source/project/res/*	$out_dir/project/res
 	chmod 777 -R $host_source/project/res/*
+
 	mkdir -p $out_dir/project/assets
-	cp -fR	$host_source/project/res/*	$out_dir/project/assets
+	cp -fR	$host_source/project/assets/*	$out_dir/project/assets
 	chmod 777 -R $host_source/project/assets/*
+
+	mkdir -p $out_dir/project/src
+	cp -fR	$host_source/project/src/*	$out_dir/project/src
+	chmod 777 -R $host_source/project/src/*
 
 	mkdir -p $out_dir/project/res/drawable-ldpi
 	mkdir -p $out_dir/project/res/drawable-mdpi
@@ -117,7 +123,7 @@
 	cp777 -f $host_source/project/.classpath $out_dir/project/.classpath
 	cp777 -f $host_source/project/proguard.cfg $out_dir/project/proguard.cfg
 	
-	mkdir -p $out_dir/project/$package_path
+	#mkdir -p $out_dir/project/$package_path
 	
 	backup_ext=.backup
 	
@@ -152,8 +158,11 @@
 
 	cp777 -f $host_source/project/AndroidManifest.xml $out_dir/project/AndroidManifest.xml
 
+	echo -e "ths----->$host_source/project/AndroidManifest.xml"
+
 	#leiyoujian start
 	if [ -f  $host_source/external/"$channel_name"/AndroidManifest.xml ]; then
+		echo -e "that----->$host_source/external/\"$channel_name\"/AndroidManifest.xml"
 		cp777 -f $host_source/external/"$channel_name"/AndroidManifest.xml $out_dir/project/AndroidManifest.xml
 	fi
 	#leiyoujian end
@@ -166,14 +175,14 @@
 	if [ x"$key_store" != x ]; then
 		key_store=`basename $key_store`
 	fi
-	fr $out_dir/project/ant.properties @KEY_STORE@ "$key_store"
-	fr $out_dir/project/ant.properties @KEY_ALIAS@ "$key_alias"
-	fr $out_dir/project/ant.properties @KEY_STORE_PASSWORD@ "$key_store_password"
-	fr $out_dir/project/ant.properties @KEY_ALIAS_PASSWORD@ "$key_alias_password"
+	fr $out_dir/project/ant.properties @KEY_STORE@ "test_key"
+	fr $out_dir/project/ant.properties @KEY_ALIAS@ "3gu"
+	fr $out_dir/project/ant.properties @KEY_STORE_PASSWORD@ "3gu2015"
+	fr $out_dir/project/ant.properties @KEY_ALIAS_PASSWORD@ "3gu2015"
 
 	cp777 -f $host_source/project/project.properties $out_dir/project/project.properties
 
-echo -e "))))))((((((("
+
 	#cdsc add
 	#leiyoujian  start
 	if [ -f  external/manifest_declarations.xml ]; then
@@ -194,21 +203,22 @@ echo -e "))))))((((((("
 
 		#cdsc add 
 
-		if [ -f  external/$library/manifest_declarations.xml ]; then
-			awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL DECLARATIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1'  external/$library/manifest_declarations.xml $out_dir/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $out_dir/project/AndroidManifest.xml
-		fi
+		# if [ -f  external/$library/manifest_declarations.xml ]; then
+		# 	awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL DECLARATIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1'  external/$library/manifest_declarations.xml $out_dir/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $out_dir/project/AndroidManifest.xml
+		# fi
 
 		#end
 
 		
-		if [ -f $host_source/external/$library/manifest_declarations.xml ]; then
-			awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL DECLARATIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $host_source/external/$library/manifest_declarations.xml $out_dir/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $out_dir/project/AndroidManifest.xml
-		fi
-		if [ -f $host_source/external/$library/manifest_permissions.xml ]; then
-			awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL PERMISSIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $host_source/external/$library/manifest_permissions.xml $out_dir/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $out_dir/project/AndroidManifest.xml
-		fi
+		# if [ -f $host_source/external/$library/manifest_declarations.xml ]; then
+		# 	awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL DECLARATIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $host_source/external/$library/manifest_declarations.xml $out_dir/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $out_dir/project/AndroidManifest.xml
+		# fi
+		# if [ -f $host_source/external/$library/manifest_permissions.xml ]; then
+		# 	awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL PERMISSIONS:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $host_source/external/$library/manifest_permissions.xml $out_dir/project/AndroidManifest.xml > /tmp/AndroidManifest.tmp && mv -f /tmp/AndroidManifest.tmp $out_dir/project/AndroidManifest.xml
+		# fi
 		if [ -f $host_source/external/$library/classpath.xml ]; then
-			awk 'FNR==NR{ _[++d]=$0; next } /EXTERNAL ENTRIES:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $host_source/external/$library/classpath.xml $out_dir/project/.classpath > /tmp/.classpath.tmp && mv -f /tmp/.classpath.tmp $out_dir/project/.classpath
+
+			awk 'FNR==NR{ _[++d]=$0; next  } /EXTERNAL ENTRIES:/ { print; print ""; for ( i=1; i<=d; i++ ) { print _[i] } next } 1' $host_source/external/$library/classpath.xml $out_dir/project/.classpath > /tmp/.classpath.tmp && mv -f /tmp/.classpath.tmp $out_dir/project/.classpath
 		fi
 
 		
@@ -221,15 +231,19 @@ echo -e "))))))((((((("
 		fr $out_dir/project/AndroidManifest.xml	@TALKINGDATA_CHANNELID@ "$talkingdata_channelid"		
 		fr $out_dir/project/AndroidManifest.xml	@DataEye_DC_APPID@ "$DataEye_DC_APPID"
 		fr $out_dir/project/AndroidManifest.xml	@DataEye_DC_CHANNEL@ "$DataEye_DC_CHANNEL"
+
+
+	echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~0~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
 		#cdsc add end
-		if [ -d $host_source/moai/$library ]; then
-#			rsync -r --exclude=.svn --exclude=.DS_Store "$host_source/moai/$library/." "$out_dir/project/src/com/ziplinegames/moai"
-			chmod 777 -R $host_source/moai/$library/*
-			pushd $host_source/moai/$library > /dev/null
-				find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $out_dir/project/src/com/ziplinegames/moai
-			popd > /dev/null
-			chmod 777 -R $out_dir/project/src/com/ziplinegames/moai/*
-		fi
+# 		if [ -d $host_source/moai/$library ]; then
+# #			rsync -r --exclude=.svn --exclude=.DS_Store "$host_source/moai/$library/." "$out_dir/project/src/com/ziplinegames/moai"
+# 			chmod 777 -R $host_source/moai/$library/*
+# 			pushd $host_source/moai/$library > /dev/null
+# 				find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $out_dir/project/src/com/ziplinegames/moai
+# 			popd > /dev/null
+# 			chmod 777 -R $out_dir/project/src/com/ziplinegames/moai/*
+# 		fi
 		if [ -d $host_source/external/$library/project ]; then
 #			rsync -r --exclude=.svn --exclude=.DS_Store "$host_source/external/$library/project/" "$out_dir/$library"
 			chmod 777 -R $host_source/external/$library/project/*
@@ -238,6 +252,7 @@ echo -e "))))))((((((("
 			popd > /dev/null
 			echo "android.library.reference.${dependency_index}=../$library/" >> $out_dir/project/project.properties
 			dependency_index=$(($dependency_index+1))
+			echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~fuck~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 		fi
 		if [ -d $host_source/external/$library/lib ]; then
 #			rsync -r --exclude=.svn --exclude=.DS_Store "$host_source/external/$library/lib/" "$out_dir/project/libs"
@@ -292,9 +307,11 @@ echo -e "))))))((((((("
 	fr $out_dir/project/AndroidManifest.xml	@PACKAGE@ "$package"
 
 	# CDSC_TAG_NATIVE_KEYBOARD 哦，宏替换～～
-	fr $out_dir/project/res/layout/main.xml	@PACKAGE@ "$package"
-	fr $out_dir/project/AndroidManifest.xml	@SCREEN_ORIENTATION@ "$screenOrientation"
+	#fr $out_dir/project/res/layout/main.xml	@PACKAGE@ "$package"
+	#fr $out_dir/project/AndroidManifest.xml	@SCREEN_ORIENTATION@ "$screenOrientation"
 	cp777 -f $host_source/project/local.properties $out_dir/project/local.properties
+
+
 	for file in `find $out_dir/ -name "local.properties"` ; do fr $file @SDK_ROOT@ "$android_sdk_root" ; done
 
 	cp -rf $host_source/project/src $out_dir/project/
@@ -332,7 +349,7 @@ echo -e "))))))((((((("
 	fi
     #cdsc
 
-
+echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~11~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 	working_dir_depth=`grep -o "\/" <<<"$working_dir" | wc -l`
 	(( working_dir_depth += 1 ))
@@ -354,28 +371,29 @@ echo -e "))))))((((((("
 		run_command="$run_command, \"$file\""
 	done
 	
+	
 	run_command="runScripts ( new String [] { $run_command } );"
 	java_files=`find $out_dir/project/src/ -name "*.java"`	
 	for file in $java_files ; do fr $file @RUN_COMMAND@ "$run_command" ; done
 	for file in $java_files ; do fr $file @PACKAGE@ "$package" ; done
 	
-	cp777 -f $host_source/init.lua $out_dir/project/assets/init.lua
+	#cp777 -f $host_source/init.lua $out_dir/project/assets/init.lua
 	
 	# cdsc add start
-	fr $out_dir/project/assets/init.lua	@CHANNEL_NAME@ "$channel_name"
+	#fr $out_dir/project/assets/init.lua	@CHANNEL_NAME@ "$channel_name"
 	# cdsc add end
 	
-	for (( i=0; i<${#src_dirs[@]}; i++ )); do
-#		rsync -r --exclude=.svn --exclude=.DS_Store --exclude=*.bat --exclude=*.sh ${src_dirs[$i]}/. $out_dir/project/assets/${dest_dirs[$i]}
-		source_dir=${src_dirs[$i]}
-		if [ x"$source_dir" != x ] && [ x"$local_root" != x ] && [[ ! $source_dir == /* ]]; then
-			source_dir=$local_root/$source_dir
-		fi
-		pushd $source_dir > /dev/null
-			find -L . -name ".?*" -type d -prune -o -name "*.sh" -type f -prune -o -name "*.bat" -type f -prune -o -type f -print0 | cpio --unconditional -pmd0 --quiet $out_dir/project/assets/${dest_dirs[$i]}
-			chmod 777 -R $out_dir/project/assets/${dest_dirs[$i]}/*
-		popd > /dev/null
-	done
+# 	for (( i=0; i<${#src_dirs[@]}; i++ )); do
+# #		rsync -r --exclude=.svn --exclude=.DS_Store --exclude=*.bat --exclude=*.sh ${src_dirs[$i]}/. $out_dir/project/assets/${dest_dirs[$i]}
+# 		source_dir=${src_dirs[$i]}
+# 		if [ x"$source_dir" != x ] && [ x"$local_root" != x ] && [[ ! $source_dir == /* ]]; then
+# 			source_dir=$local_root/$source_dir
+# 		fi
+# 		pushd $source_dir > /dev/null
+# 			find -L . -name ".?*" -type d -prune -o -name "*.sh" -type f -prune -o -name "*.bat" -type f -prune -o -type f -print0 | cpio --unconditional -pmd0 --quiet $out_dir/project/assets/${dest_dirs[$i]}
+# 			chmod 777 -R $out_dir/project/assets/${dest_dirs[$i]}/*
+# 		popd > /dev/null
+# 	done
 	if [ "$debug" == "true" ]; then
 		install_cmd="ant debug install"
 	else
@@ -391,6 +409,8 @@ echo -e "))))))((((((("
 			adb logcat -c
 			adb logcat MoaiLog:V AndroidRuntime:E *:S
 		popd > /dev/null
+
+		echo -e "00000000000000000000000000000000"
 	fi
 	
 	if [ "$debug" == "true" ]; then
