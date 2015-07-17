@@ -152,7 +152,7 @@
 		apk_name=$project_name"_V"$version_name"_"$pack_type"_"$channel_name"_"$channel_lua_name
 	fi
  
-	#cp777 -f key/"$channel_name"_key  $out_dir/project/"$channel_name"_key
+	cp777 -f key/"$channel_name"_key  $out_dir/project/"$channel_name"_key
 	#cdsc add end
 	fr $out_dir/project/build.xml @NAME@ "$apk_name"
 
@@ -177,7 +177,7 @@
 	if [ x"$key_store" != x ]; then
 		key_store=`basename $key_store`
 	fi
-	fr $out_dir/project/ant.properties @KEY_STORE@ "test_key"
+	fr $out_dir/project/ant.properties @KEY_STORE@ "$key_store"
 	fr $out_dir/project/ant.properties @KEY_ALIAS@ "3gu"
 	fr $out_dir/project/ant.properties @KEY_STORE_PASSWORD@ "3gu2015"
 	fr $out_dir/project/ant.properties @KEY_ALIAS_PASSWORD@ "3gu2015"
@@ -336,6 +336,16 @@
 		fr $out_dir/project/src/com/ziplinegames/moai/MoaiXianguo.java	@CHANNEL_ID@ "$sub_channel_id"
 	fi
 #CDSC end
+
+
+#cdsc add luo
+		if [ -d channel/$channel_name ]; then
+		cp -fR	channel/$channel_name/*	$out_dir/project
+		pushd channel/$channel_name > /dev/null
+		find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $out_dir/project
+		popd > /dev/null
+		fi
+#cdsc  luo
 
 
 
