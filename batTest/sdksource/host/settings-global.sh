@@ -10,9 +10,9 @@
 # application and project names
 #----------------------------------------------------------------#
 
-	project_name="GuoBaoTeGong"
-	app_name="果宝勇士"
-	pkg_name="GuoBaoTeGong"
+	project_name="guobao"
+	app_name="果宝特攻"
+	pkg_name="guobao"
 	
 	DataEye_DC_APPID="9E26D765D4C16FF070237FB3BD8E259E"
 	DataEye_DC_CHANNEL=$channel_name
@@ -60,6 +60,11 @@
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 
+	if [ x"$channel_name" == x4net_xiaomi ]; then
+	    pkg_name=$pkg_name.mi
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+
 	# if [ x"$channel_name" == xallsms ]; then
 	#     pkg_name=$pkg_name.$channel_lua_name
 	# fi
@@ -72,8 +77,8 @@
 # version numbers
 #----------------------------------------------------------------#
 
-	version_code="10042"
-	version_name="1.0.42"
+	version_code="3"
+	version_name="1.1"
 
 #----------------------------------------------------------------#
 # space-delimited list of libraries (moai-supported) required 

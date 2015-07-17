@@ -40,7 +40,7 @@
 	    shift
 	done
 
-	package=cn.ultralisk.guobao
+	package=cn.ultralisk
 	#package_path=src/cn/ultralisk/gameapp
  
 	if [ x"$channel_name" = x"$channel_lua_name" ]; then
@@ -146,7 +146,7 @@
 	
 	fr $out_dir/project/res/values/strings.xml @NAME@ "$app_name"
 	
-	cp777 -f $host_source/project/.project $out_dir/project/.project             ///////luo
+	#cp777 -f $host_source/project/.project $out_dir/project/.project             ///////luo
 	fr $out_dir/project/.project @NAME@ "$project_name"
 
 	#cp777 -f $host_source/project/build.xml $out_dir/project/build.xml                //////luo
