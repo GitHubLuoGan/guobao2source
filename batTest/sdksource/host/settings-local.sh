@@ -70,4 +70,4 @@
 			fi
 	fi
 	
-MOAI14_SDK=E:/ude_guobao2/batTest/gameProjetc/sdk
+MOAI14_SDK=E:/ude_guobao2/ude4Sourcecode/batTest/gameProjetc/sdk

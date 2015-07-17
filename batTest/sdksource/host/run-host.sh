@@ -156,6 +156,8 @@
 	#cdsc add end
 	fr $out_dir/project/build.xml @NAME@ "$apk_name"
 
+	echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~fuck build.xml  $apk_name~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
 	cp777 -f $host_source/project/AndroidManifest.xml $out_dir/project/AndroidManifest.xml
 
 	echo -e "ths----->$host_source/project/AndroidManifest.xml"
@@ -303,6 +305,7 @@
 
 	done
  
+
 
 	fr $out_dir/project/AndroidManifest.xml	@PACKAGE@ "$package"
 
