@@ -40,7 +40,7 @@
 	    shift
 	done
 
-	package=cn.ultralisk
+	package=com.ultralisk
 	#package_path=src/cn/ultralisk/gameapp
  
 	if [ x"$channel_name" = x"$channel_lua_name" ]; then
