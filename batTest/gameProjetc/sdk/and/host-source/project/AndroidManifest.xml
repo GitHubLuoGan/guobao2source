@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="@APP_PACKAGE@" android:versionName="@VERSION_NAME@" android:versionCode="@VERSION_CODE@" android:installLocation="preferExternal">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.ultralisk.guobao" android:versionName="1.1" android:versionCode="3" android:installLocation="preferExternal">
   <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true" />
   <application android:name="com.ziplinegames.moai.UnipayApplication" android:theme="@android:style/Theme.NoTitleBar" android:icon="@drawable/app_icon" android:label="@string/app_name" android:debuggable="false">
     <activity android:name="com.ziplinegames.moai.LogoActivity" android:label="@string/app_name" android:screenOrientation="sensorLandscape" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale">
@@ -11,7 +11,7 @@
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
     </activity>
-    <activity android:name="@APP_PACKAGE@.GboActivity" android:label="@string/app_name" android:screenOrientation="sensorLandscape" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale">
+    <activity android:name="com.x3gu.gbo.GboActivity" android:label="@string/app_name" android:screenOrientation="sensorLandscape" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale">
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
     </activity>
@@ -21,7 +21,7 @@
     <service android:name="mm.purchasesdk.iapservice.PurchaseService" android:exported="true">
       <!-- android:process="mm.iapServices" > -->
       <intent-filter android:priority="313">
-        <action android:name="com.ultralisk.guobao.oppo.purchaseservice.BIND" />
+        <action android:name="com.ultralisk.guobao.purchaseservice.BIND" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </service>
@@ -29,7 +29,7 @@
     <!-- android:launchMode="singleInstance" -->
     <activity android:name="mm.purchasesdk.iapservice.BillingLayoutActivity" android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Translucent">
       <intent-filter android:priority="313">
-        <action android:name="@APP_PACKAGE@.mmiap.activity" />
+        <action android:name="com.ultralisk.guobao.com.mmiap.activity" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
@@ -106,11 +106,11 @@
     <meta-data android:name="wostore_billing_chinatele" android:value="true" />
     <service android:name="com.unicom.wostore.unipay.paysecurity.SecurityServiceFramework">
       <intent-filter>
-        <action android:name="com.ultralisk.guobao.oppo.unicom.wostore.unipay.securityserviceframework" />
+        <action android:name="com.ultralisk.guobao.unicom.wostore.unipay.securityserviceframework" />
       </intent-filter>
     </service>
     <activity android:name="com.unicom.dcLoader.welcomeview" android:label="@string/app_name" android:screenOrientation="sensorLandscape" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:configChanges="keyboardHidden|screenSize|navigation|orientation">
-      <meta-data android:name="UNICOM_DIST_ACTIVITY" android:value="@APP_PACKAGE@.GboActivity" />
+      <meta-data android:name="UNICOM_DIST_ACTIVITY" android:value="com.x3gu.gbo.GboActivity" />
     </activity>
     <!-- unipay  end -->
     <!-- heyouxi start-->
@@ -151,7 +151,7 @@
     <!-- 【必须】 通知service，此选项有助于提高抵达率 -->
     <service android:name="com.tencent.android.tpush.rpc.XGRemoteService" android:exported="true">
       <intent-filter>
-        <action android:name="com.ultralisk.guobao.oppo.PUSH_ACTION" />
+        <action android:name="com.ultralisk.guobao.PUSH_ACTION" />
       </intent-filter>
     </service>
     <!-- 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->

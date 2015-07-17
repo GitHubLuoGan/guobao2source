@@ -94,6 +94,17 @@
 	mkdir -p $out_dir/project/res/drawable-xhdpi
 	mkdir -p $out_dir/project/res/raw
 
+	#cdsc add luo
+		if [ -d common ]; then
+		cp -fR	common/*	$out_dir/project
+		pushd common > /dev/null
+		find . -name ".?*" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $out_dir/project
+		popd > /dev/null
+		fi
+
+		chmod 777 -R $host_source/project/*
+	#cdsc  luo
+
 	if [ x"$icon_ldpi" != x ] && [ -f $icon_ldpi ]; then
 		cp777 -f $icon_ldpi $out_dir/project/res/drawable-ldpi/icon.png
 	fi
@@ -120,8 +131,8 @@
 
 
 			
-	cp777 -f $host_source/project/.classpath $out_dir/project/.classpath
-	cp777 -f $host_source/project/proguard.cfg $out_dir/project/proguard.cfg
+	#cp777 -f $host_source/project/.classpath $out_dir/project/.classpath        //////luo
+	#cp777 -f $host_source/project/proguard.cfg $out_dir/project/proguard.cfg                   /////luo
 	
 	#mkdir -p $out_dir/project/$package_path
 	
@@ -135,10 +146,10 @@
 	
 	fr $out_dir/project/res/values/strings.xml @NAME@ "$app_name"
 	
-	cp777 -f $host_source/project/.project $out_dir/project/.project 
+	cp777 -f $host_source/project/.project $out_dir/project/.project             ///////luo
 	fr $out_dir/project/.project @NAME@ "$project_name"
 
-	cp777 -f $host_source/project/build.xml $out_dir/project/build.xml
+	#cp777 -f $host_source/project/build.xml $out_dir/project/build.xml                //////luo
 	#cdsc add start
 	pack_type=NoRes
 	if [ x"$use_all_in_one" == xtrue ]; then
@@ -158,7 +169,7 @@
 
 	echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~fuck build.xml  $apk_name~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
-	cp777 -f $host_source/project/AndroidManifest.xml $out_dir/project/AndroidManifest.xml
+	#cp777 -f $host_source/project/AndroidManifest.xml $out_dir/project/AndroidManifest.xml            /////////luo
 
 	echo -e "ths----->$host_source/project/AndroidManifest.xml"
 
@@ -173,7 +184,7 @@
 	fr $out_dir/project/AndroidManifest.xml	@VERSION_CODE@ "$version_code"
 	fr $out_dir/project/AndroidManifest.xml	@VERSION_NAME@ "$version_name"	
 	fr $out_dir/project/AndroidManifest.xml	@APP_PACKAGE@ "$app_package"	
-	cp777 -f $host_source/project/ant.properties $out_dir/project/ant.properties
+	#cp777 -f $host_source/project/ant.properties $out_dir/project/ant.properties /////////////////luo
 	if [ x"$key_store" != x ]; then
 		key_store=`basename $key_store`
 	fi
@@ -182,7 +193,7 @@
 	fr $out_dir/project/ant.properties @KEY_STORE_PASSWORD@ "3gu2015"
 	fr $out_dir/project/ant.properties @KEY_ALIAS_PASSWORD@ "3gu2015"
 
-	cp777 -f $host_source/project/project.properties $out_dir/project/project.properties
+	#cp777 -f $host_source/project/project.properties $out_dir/project/project.properties        //////////luo
 
 
 	#cdsc add
@@ -312,7 +323,7 @@
 	# CDSC_TAG_NATIVE_KEYBOARD 哦，宏替换～～
 	#fr $out_dir/project/res/layout/main.xml	@PACKAGE@ "$package"
 	#fr $out_dir/project/AndroidManifest.xml	@SCREEN_ORIENTATION@ "$screenOrientation"
-	cp777 -f $host_source/project/local.properties $out_dir/project/local.properties
+	#cp777 -f $host_source/project/local.properties $out_dir/project/local.properties            /////////luo
 
 
 	for file in `find $out_dir/ -name "local.properties"` ; do fr $file @SDK_ROOT@ "$android_sdk_root" ; done
