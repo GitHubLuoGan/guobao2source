@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical" 
-    android:background="@drawable/mmsms_drawable">
+    >
 
     <ImageView
         android:id="@+id/logo"

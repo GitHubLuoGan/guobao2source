@@ -29,7 +29,7 @@
     <!-- android:launchMode="singleInstance" -->
     <activity android:name="mm.purchasesdk.iapservice.BillingLayoutActivity" android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Translucent">
       <intent-filter android:priority="313">
-        <action android:name="@APP_PACKAGE@.mmiap.activity" />
+        <action android:name="@APP_PACKAGE@.com.mmiap.activity" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>

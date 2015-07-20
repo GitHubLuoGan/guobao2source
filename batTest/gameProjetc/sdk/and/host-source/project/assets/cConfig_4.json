@@ -1,6 +1,7 @@
 {
 "name":"移动基地和游戏",
 "comSec":"6a8802c99d7dd56e01045047ab79a41e",
+"packageChannel":"mmand4399oppo",
 "mainActivity":"com.x3gu.gbo.GboActivity",
 "sdkJavaName":"com.ziplinegames.moai.CommonAnd",  
 "sdkDataJavaName":"",
@@ -8,10 +9,10 @@
 "gateWayPath":"sdk/cmgc/auth",
 "gameName":"果宝特攻",
 "dataAppid":"77A0F8031B9CAA2D9AFE38CC237B26DA",
-"dataChannel":"AND",
+"dataChannel":"4399-AND",
 "copGameId":"53",
-"copChannelId":"199",
-"cdkChannel":"2199",
+"copChannelId":"196",
+"cdkChannel":"2196",
 "billing":[
 {"number":1,"money":3000,"billingIndex":"001","useSms":"true","isRepeated":"true"},
 {"number":2,"money":600,"billingIndex":"002","useSms":"true","isRepeated":"true"},
