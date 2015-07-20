@@ -1,4 +1,4 @@
 pushd ..
 call make-host.bat 4net 4399 0 true
-_tools\notifu /t info /d 10000 /p å‹æƒ…æç¤º /m ç”Ÿæˆæœ€æ–°androidåŒ…å®Œæˆï¼Œè¯·åˆ°_packagesç›®å½•ä¸‹æŸ¥çœ‹apkåŒ…
+_tools\notifu /t info /d 10000 /p ÎÂÜ°ÌáÊ¾ /m Éú³É×îĞÂandroid°üÍê³É£¬Çëµ½_packagesÏÂ²é¿´apk°ü
 popd
