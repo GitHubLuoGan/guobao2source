@@ -51,12 +51,8 @@
 	    pkg_name=$pkg_name.cmgc
 	fi
 	
-	if [ x"$channel_lua_name" == xhrf ]; then
+	if [ x"$channel_lua_name" == xhfr ]; then
 	    app_name="果宝特攻:机甲大合体"
-		jpush_appkey="1aa92636ba5f53f8357f9cf4"
-	fi
-	if [ x"$channel_name" == xoppo ]; then
-	    pkg_name=$pkg_name.oppo
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 
@@ -64,6 +60,17 @@
 	    pkg_name=$pkg_name.wali
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
+
+	if [ x"$channel_name" == xoppo ]; then
+	    pkg_name=$pkg_name.oppo
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+
+	if [ x"$channel_lua_name" == xoppo_hai ]; then
+	    pkg_name=$pkg_name.oppo
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+
 
 	# if [ x"$channel_name" == xallsms ]; then
 	#     pkg_name=$pkg_name.$channel_lua_name
