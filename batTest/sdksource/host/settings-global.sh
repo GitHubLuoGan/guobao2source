@@ -55,13 +55,13 @@
 	    pkg_name=$pkg_name.tencent
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
-	if [ x"$channel_name" == xwdj ]; then
-	    pkg_name=$pkg_name.wdj
+	if [ x"$channel_name" == xoppo ]; then
+	    pkg_name=$pkg_name.oppo
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 
 	if [ x"$channel_name" == x4net_xiaomi ]; then
-	    pkg_name=$pkg_name.mi
+	    pkg_name=$pkg_name.wali
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 

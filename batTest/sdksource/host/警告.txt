@@ -1,0 +1,1 @@
+每次添加新的project，需要删除project/assets下的libmegbpp_02.02.10_00.so，以及自己的jar包 common.jar
