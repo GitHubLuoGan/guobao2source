@@ -85,7 +85,7 @@
 #----------------------------------------------------------------#
 
 	version_code="3"
-	version_name="1.01"
+	version_name="1.1"
 
 #----------------------------------------------------------------#
 # space-delimited list of libraries (moai-supported) required 

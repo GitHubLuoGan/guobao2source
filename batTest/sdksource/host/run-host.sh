@@ -14,13 +14,14 @@
 	set -e
 	
 	channels=(downjoy uc nd91 qihoo360 xiaomi duoku cmgc ultralisk xianguo yuzhuo)
-	
+	is4net=$5
 	for ch in "${channels[@]}"; do
 		if [ x"$ch" != x"$1" ]; then
 			channel_name=$1
 			channel_lua_name=$2
 			sub_channel_id=$3
 			use_all_in_one=$4
+			
 		fi
 	done
 	
@@ -95,6 +96,13 @@
 	mkdir -p $out_dir/project/res/raw
 
 	#cdsc add luo
+
+	if [ x"$is4net" == xtrue ]; then
+		
+		rm $out_dir/project/assets/libmegbpp_02.02.10_00.so
+	
+	fi
+
 		if [ -d common ]; then
 		cp -fR	common/*	$out_dir/project
 		pushd common > /dev/null
