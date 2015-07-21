@@ -15,7 +15,7 @@
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
     </activity>
-    <activity android:name="com.ziplinegames.moai.mmsmsVali" android:screenOrientation="landscape" android:configChanges="keyboardHidden|orientation" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+    <activity android:name="com.ziplinegames.moai.mmsmsVali" android:screenOrientation="landscape" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
     </activity>
     <!-- mm start-->
     <service android:name="mm.purchasesdk.iapservice.PurchaseService" android:exported="true">
@@ -27,7 +27,7 @@
     </service>
     <!-- android:excludeFromRecents="true" -->
     <!-- android:launchMode="singleInstance" -->
-    <activity android:name="mm.purchasesdk.iapservice.BillingLayoutActivity" android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Translucent">
+    <activity android:name="mm.purchasesdk.iapservice.BillingLayoutActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:theme="@android:style/Theme.Translucent">
       <intent-filter android:priority="313">
         <action android:name="@APP_PACKAGE@.com.mmiap.activity" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -77,13 +77,13 @@
     <service android:name="safiap.framework.logreport.monitor.handler.LogreportHandler" android:process=":remote" />
     <!-- android:process="safiap.framework.safframeworkmanager" end -->
     <!-- mmsms leiyoujian start-->
-    <activity android:name="com.ziplinegames.moai.mmsmsVali" android:screenOrientation="sensorLandscape" android:configChanges="keyboardHidden|orientation" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+    <activity android:name="com.ziplinegames.moai.mmsmsVali" android:screenOrientation="sensorLandscape" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
     </activity>
     <!-- mmsms leiyoujian end-->
     <!-- ctcc start -->
-    <activity android:name="cn.egame.terminal.paysdk.EgamePayActivity" android:configChanges="orientation|keyboard|keyboardHidden" android:screenOrientation="sensorLandscape" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+    <activity android:name="cn.egame.terminal.paysdk.EgamePayActivity" android:configChanges="orientation|keyboard|keyboardHidden|screenSize" android:screenOrientation="sensorLandscape" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
     </activity>
-    <activity android:name="cn.play.dserv.EmpActivity" android:exported="true" android:configChanges="keyboard|keyboardHidden|orientation" />
+    <activity android:name="cn.play.dserv.EmpActivity" android:exported="true" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
     <service android:name="cn.play.dserv.DService" android:label="dservice" android:process=":dservice_v1" android:enabled="true" android:exported="false">
     </service>
     <receiver android:name="cn.play.dserv.DsReceiver" android:process=":dservice_v1">
