@@ -7,6 +7,8 @@
 	set channel_lua_name=%2%
 	set version_name=%3%
 	set gameName=%4%
+	set mymonth=%DATE:~5,2%
+	set day=%date:~8,2%
 
 	echo %channel_lua_name%
 
@@ -15,12 +17,12 @@
 	set keyPath=%cd%\key\%channel_name%_key
 
 	if "%channel_name%"=="%channel_lua_name%" (
-		set apk_name=%gameName%_V%version_name%_AllInOne_%channel_name%-release-unsigned.apk
-		set signPackageName=%gameName%_V%version_name%_AllInOne_%channel_name%-release.apk
+		set apk_name=%gameName%_V%version_name%_AllInOne_%channel_name%_%mymonth%%day%-release-unsigned.apk
+		set signPackageName=%gameName%_V%version_name%_AllInOne_%channel_name%_%mymonth%%day%-release.apk
 		echo "equal"
 		) else (
-		set apk_name=%gameName%_V%version_name%_AllInOne_%channel_name%_%channel_lua_name%-release-unsigned.apk
-		set signPackageName=%gameName%_V%version_name%_AllInOne_%channel_name%_%channel_lua_name%-release.apk
+		set apk_name=%gameName%_V%version_name%_AllInOne_%channel_name%_%channel_lua_name%_%mymonth%%day%-release-unsigned.apk
+		set signPackageName=%gameName%_V%version_name%_AllInOne_%channel_name%_%channel_lua_name%_%mymonth%%day%-release.apk
 		echo "unequal"
 		)
 

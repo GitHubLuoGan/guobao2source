@@ -163,23 +163,23 @@
 	if [ x"$use_all_in_one" == xtrue ]; then
 		pack_type=AllInOne
 	fi
-	 
+	
+	dayNow=`date +%m%d` 
+
 
 	if [ x"$channel_name" = x"$channel_lua_name" ]; then 
-		apk_name=$project_name"_V"$version_name"_"$pack_type"_"$channel_name		
+		apk_name=$project_name"_V"$version_name"_"$pack_type"_"$channel_name"_"$dayNow	
 	else
-		apk_name=$project_name"_V"$version_name"_"$pack_type"_"$channel_name"_"$channel_lua_name
+		apk_name=$project_name"_V"$version_name"_"$pack_type"_"$channel_name"_"$channel_lua_name"_"$dayNow
 	fi
  
 	cp777 -f key/"$channel_name"_key  $out_dir/project/"$channel_name"_key
 	#cdsc add end
 	fr $out_dir/project/build.xml @NAME@ "$apk_name"
 
-	echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~fuck build.xml  $apk_name~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 	#cp777 -f $host_source/project/AndroidManifest.xml $out_dir/project/AndroidManifest.xml            /////////luo
 
-	echo -e "ths----->$host_source/project/AndroidManifest.xml"
 
 	#leiyoujian start
 	if [ -f  $host_source/external/"$channel_name"/AndroidManifest.xml ]; then
