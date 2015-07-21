@@ -1,7 +1,6 @@
 <!-- Crittercism -->
 <classpathentry kind="lib" path="libs/alipaysdk.jar"/>
 <classpathentry kind="lib" path="libs/android-support-v4.jar"/>
-<classpathentry kind="lib" path="libs/CMBilling.jar"/>
 <classpathentry kind="lib" path="libs/common.jar"/>
 <classpathentry kind="lib" path="libs/DataEye_Android_v2.6.0.jar"/>
 
