@@ -43,7 +43,8 @@
 	del mmiap.xml
 	del CopyrightDeclaration.xml
 	echo "+++++++++++++++++++++++++++反编译完成，签名中+++++++++++++++++++++++++++++++"
-	jarsigner -verbose -keystore %keyPath% -signedjar %packagePath%\%signPackageName% %packagePath%\%apk_name% 3gu 
+	jarsigner -verbose -keystore %keyPath% -storepass 3gu2015 -signedjar %packagePath%\%signPackageName% -digestalg SHA1 -sigalg MD5withRSA %packagePath%\%apk_name% 3gu
+	::jarsigner -verbose -keystore %keyPath% -signedjar %packagePath%\%signPackageName% %packagePath%\%apk_name% 3gu 
 	del %cd%\_packages\%apk_name%
 	echo "+++++++++++++++++++++++++++签名完成+++++++++++++++++++++++++++++++"
 	
