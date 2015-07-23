@@ -45,6 +45,7 @@
 {"number":"29","money":3000,"payCode":"023"},
 {"number":"30","money":600,"payCode":"022"},
 {"number":"31","money":1000,"payCode":"021"},
-{"number":"32","money":1800,"payCode":"020"}
+{"number":"32","money":1800,"payCode":"020"},
+{"number":"33","money":1500,"payCode":"033"}
 ]
 }

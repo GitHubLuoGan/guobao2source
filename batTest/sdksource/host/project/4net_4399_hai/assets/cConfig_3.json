@@ -46,6 +46,7 @@
 {"number":"29","money":2000,"payCode":"TOOL29"},
 {"number":"30","money":1000,"payCode":"TOOL30"},
 {"number":"31","money":3000,"payCode":"TOOL31"},
-{"number":"32","money":3000,"payCode":"TOOL32"}
+{"number":"32","money":3000,"payCode":"TOOL32"},
+{"number":"33","money":1500,"payCode":"TOOL33"}
 ]
 }

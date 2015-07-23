@@ -45,7 +45,8 @@
 {"number":30,"money":2000,"billingIndex":"030","useSms":"true","isRepeated":"true"},
 {"number":31,"money":1000,"billingIndex":"031","useSms":"true","isRepeated":"true"},
 {"number":32,"money":3000,"billingIndex":"032","useSms":"true","isRepeated":"true"},
-{"number":33,"money":3000,"billingIndex":"033","useSms":"true","isRepeated":"true"}
+{"number":33,"money":3000,"billingIndex":"033","useSms":"true","isRepeated":"true"},
+{"number":34,"money":1500,"billingIndex":"034","useSms":"true","isRepeated":"true"}
 ]
 }
 

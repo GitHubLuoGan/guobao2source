@@ -135,6 +135,11 @@
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 
+	if [ x"$channel_name" == xctcc ]; then
+	    pkg_name=$pkg_name.none
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+
 
 	# if [ x"$channel_name" == xallsms ]; then
 	#     pkg_name=$pkg_name.$channel_lua_name

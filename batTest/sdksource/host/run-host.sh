@@ -103,6 +103,12 @@
 	
 	fi
 
+	if [ x"$channel_name" == xunipay ]; then
+		
+		rm $out_dir/project/libs/Multimode_UniPay_payinfo.jar
+	
+	fi
+
 		if [ -d common ]; then
 		cp -fR	common/*	$out_dir/project
 		pushd common > /dev/null
