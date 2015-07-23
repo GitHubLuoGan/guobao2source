@@ -1,7 +1,6 @@
 {
 "name":"移动基地和游戏",
 "comSec":"6a8802c99d7dd56e01045047ab79a41e",
-"packageChannel":"mmand4399oppo",
 "mainActivity":"com.x3gu.gbo.GboActivity",
 "sdkJavaName":"com.ziplinegames.moai.CommonAnd",  
 "sdkDataJavaName":"",
@@ -46,7 +45,8 @@
 {"number":30,"money":2000,"billingIndex":"030","useSms":"true","isRepeated":"true"},
 {"number":31,"money":1000,"billingIndex":"031","useSms":"true","isRepeated":"true"},
 {"number":32,"money":3000,"billingIndex":"032","useSms":"true","isRepeated":"true"},
-{"number":33,"money":3000,"billingIndex":"033","useSms":"true","isRepeated":"true"}
+{"number":33,"money":3000,"billingIndex":"033","useSms":"true","isRepeated":"true"},
+{"number":34,"money":1500,"billingIndex":"034","useSms":"true","isRepeated":"true"}
 ]
 }
 

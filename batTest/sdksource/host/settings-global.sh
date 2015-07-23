@@ -70,6 +70,70 @@
 	    pkg_name=$pkg_name.oppo
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
+	
+	if [ x"$channel_lua_name" == xoppo ]; then
+	    pkg_name=$pkg_name.oppo
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xbaidu ]; then
+	    pkg_name=$pkg_name.baidu
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+
+	if [ x"$channel_lua_name" == xanzhi ]; then
+	    pkg_name=$pkg_name.anzhi
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xoppo ]; then
+	    pkg_name=$pkg_name.oppo
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xyouku ]; then
+	    pkg_name=$pkg_name.youku
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xbf ]; then
+	    pkg_name=$pkg_name.bf
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xkuwo ]; then
+	    pkg_name=$pkg_name.kuwo
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	if [ x"$channel_lua_name" == xyyh ]; then
+	    pkg_name=$pkg_name.yyh
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xmeitu ]; then
+	    pkg_name=$pkg_name.meitu
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xlenovo ]; then
+	    pkg_name=$pkg_name.lenovo
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xsina ]; then
+	    pkg_name=$pkg_name.sina
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xiqiyi ]; then
+	    pkg_name=$pkg_name.iqiyi
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+	
+	if [ x"$channel_lua_name" == xpp ]; then
+	    pkg_name=$pkg_name.pp
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
 
 
 	# if [ x"$channel_name" == xallsms ]; then
@@ -84,8 +148,8 @@
 # version numbers
 #----------------------------------------------------------------#
 
-	version_code="3"
-	version_name="1.1"
+	version_code="4"
+	version_name="1.2"
 
 #----------------------------------------------------------------#
 # space-delimited list of libraries (moai-supported) required 

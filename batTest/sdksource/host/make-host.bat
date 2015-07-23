@@ -39,7 +39,7 @@
 
 		if "%isdecode%" == "true" (
 		copy %projectSrc%\project\bin\*-unsigned.apk _packages\
-		call decodeAndResign.bat %channelname% %channel_lua_name% 1.1 guobao ::此处版本只影响显示名字
+		call decodeAndResign.bat %channelname% %channel_lua_name% 1.2 guobao ::此处版本只影响显示名字
 		) else (
 		echo %isdecode%
 		copy %projectSrc%\project\bin\*-release.apk _packages\

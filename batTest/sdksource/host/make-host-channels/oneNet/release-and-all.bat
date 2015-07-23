@@ -1,0 +1,13 @@
+call make-host-and-all.bat
+call make-host-and-anzhi-all.bat
+call make-host-and-baidu-all.bat
+call make-host-and-bf-all.bat
+call make-host-and-iqiyi-all.bat
+call make-host-and-kuwo-all.bat
+call make-host-and-lenovo-all.bat
+call make-host-and-meitu-all.bat
+call make-host-and-oppo-all.bat
+call make-host-and-pp-all.bat
+call make-host-and-sina-all.bat
+call make-host-and-youku-all.bat
+call make-host-and-yyh-all.bat
