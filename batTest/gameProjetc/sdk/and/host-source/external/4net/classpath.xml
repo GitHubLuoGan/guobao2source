@@ -11,7 +11,7 @@
 <classpathentry kind="lib" path="libs/mid-sdk-2.10.jar"/>
 
 <classpathentry kind="lib" path="libs/miniapay.jar"/>
-<classpathentry kind="lib" path="libs/mmbilling.3.1.3.jar"/>
+<classpathentry kind="lib" path="libs/mmbilling.3.1.7.jar"/>
 <classpathentry kind="lib" path="libs/MobileSecSdk.jar"/>
 <classpathentry kind="lib" path="libs/Multimode_UniPay_base.jar"/>
 <classpathentry kind="lib" path="libs/Multimode_UniPay_payinfo.jar"/>
