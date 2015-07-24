@@ -86,11 +86,6 @@
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 	
-	if [ x"$channel_lua_name" == xoppo ]; then
-	    pkg_name=$pkg_name.oppo
-		jpush_appkey="1aa92636ba5f53f8357f9cf4"
-	fi
-	
 	if [ x"$channel_lua_name" == xyouku ]; then
 	    pkg_name=$pkg_name.youku
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
@@ -137,6 +132,12 @@
 
 	if [ x"$channel_name" == xctcc ]; then
 	    pkg_name=$pkg_name.none
+	    app_name="果宝特攻:保卫彩莲"
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+
+	if [ x"$channel_name" == xunipay ]; then
+	    app_name="果宝特攻:保卫彩莲"
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 
