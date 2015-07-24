@@ -141,6 +141,11 @@
 		jpush_appkey="1aa92636ba5f53f8357f9cf4"
 	fi
 
+	if [ x"$channel_lua_name" == xvivo ]; then
+	    pkg_name=$pkg_name.vivo
+		jpush_appkey="1aa92636ba5f53f8357f9cf4"
+	fi
+
 
 	# if [ x"$channel_name" == xallsms ]; then
 	#     pkg_name=$pkg_name.$channel_lua_name
